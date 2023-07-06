@@ -1,6 +1,5 @@
 import { IoMdContact } from 'react-icons/io';
 
-
 const SavedContact = ({ arrayContacts }) => {
     return (
         <>
