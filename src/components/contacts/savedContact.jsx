@@ -6,15 +6,10 @@ const SavedContact = ({ arrayContacts, onDeleteContact }) => {
             {arrayContacts.length > 0 && arrayContacts.map(contact => {
                 return (
                     <li key={contact.name}
-                    // onClick={(e) => {
-                    // if (e.target === 'BUTTON') {
-                    //     onDeleteContact()
-                    // }}}
                     >
                         <p><IoMdContact />{contact.name}: {contact.number}</p>
                         <button
                             type='button'
-                        // onClick={onDeleteContact}
                         >
                             Delete
                         </button>
