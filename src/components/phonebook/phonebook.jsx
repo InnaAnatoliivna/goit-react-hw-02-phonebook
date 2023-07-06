@@ -5,8 +5,9 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
     return (
         <>
             <form className={css.form} action='submit' onSubmit={handleAddContact}>
-                <label htmlFor={nameInputId}>Name</label>
+                <label className={css.label} htmlFor={nameInputId}>Name</label>
                 <input
+                    className={css.input}
                     type="text"
                     name="name"
                     pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -15,8 +16,9 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
                     onChange={handleChange}
                     required
                 />
-                <label htmlFor={numerInputId}>Number</label>
+                <label className={css.label} htmlFor={numerInputId}>Number</label>
                 <input
+                    className={css.input}
                     type="tel"
                     name="number"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -25,7 +27,7 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
                     onChange={handleChange}
                     required
                 />
-                <button>Add contact</button>
+                <button className={css.button}>Add contact</button>
             </form>
         </>
     )
