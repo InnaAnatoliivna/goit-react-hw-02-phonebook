@@ -64,7 +64,7 @@ export class App extends Component {
         .includes(filter.toLowerCase()))
 
     return (
-      <div>
+      <div className='container'>
         <Head headTitle='Phonebook' />
 
         <Phonebook

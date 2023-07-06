@@ -1,8 +1,10 @@
+import css from 'components/phonebook/phonebook.module.css'
+
 const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, number, name }) => {
 
     return (
-        <div>
-            <form action='submit' onSubmit={handleAddContact}>
+        <>
+            <form className={css.form} action='submit' onSubmit={handleAddContact}>
                 <label htmlFor={nameInputId}>Name</label>
                 <input
                     type="text"
@@ -25,7 +27,7 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
                 />
                 <button>Add contact</button>
             </form>
-        </div>
+        </>
     )
 
 }
