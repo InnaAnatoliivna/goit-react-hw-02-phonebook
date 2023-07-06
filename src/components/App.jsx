@@ -5,24 +5,25 @@ import Head from 'components/title/head';
 import Section from 'components/title/section-title';
 import Phonebook from 'components/phonebook/phonebook';
 import Contacts from 'components/contacts/contacts';
+import SearchContact from 'components/contacts/SearchContact';
 
 export class App extends Component {
   nameInputId = nanoid();
   numerInputId = nanoid();
-  // dataFields = {}
 
   state = {
     contacts: [],
     name: '',
-    number: ''
+    number: '',
+    filter: ''
   }
 
-  handleChange = (evt) => {
+  onChangeInput = (evt) => {
     const { name, value } = evt.target;
     this.setState({ [name]: value })
   }
 
-  addToContacts = (e) => {
+  onAddToContacts = (e) => {
     e.preventDefault();
     const dataFields = {}
     const { contacts, name } = this.state;
@@ -49,28 +50,40 @@ export class App extends Component {
     this.setState({ contacts: updateArrayContacts })
   }
 
+  onFilteringInput = (e) => {
+    const searchValue = e.target.value.trim();
+    console.log(searchValue)
+    this.setState({ filter: searchValue })
+  }
+
   render() {
 
-    const { contacts, name, number } = this.state;
+    const { contacts, name, number, filter } = this.state;
+    const filteredContacts = contacts
+      .filter(contact => contact.name.toLowerCase()
+        .includes(filter.toLowerCase()))
 
     return (
       <div>
-        <Head headTitle='Phone book and contacts' />
+        <Head headTitle='Phonebook' />
 
-        <Section title='Phonebook'>
-          <Phonebook
-            nameInputId={this.nameInputId}
-            numerInputId={this.numerInputId}
-            handleAddContact={this.addToContacts}
-            handleChange={this.handleChange}
-            name={name}
-            number={number}
-          />
-        </Section>
+        <Phonebook
+          nameInputId={this.nameInputId}
+          numerInputId={this.numerInputId}
+          handleAddContact={this.onAddToContacts}
+          handleChange={this.onChangeInput}
+          name={name}
+          number={number}
+        />
 
         <Section title='Contacts'>
-          <Contacts
+          <SearchContact
+            handleSearchInput={this.onFilteringInput}
+            searchTitle='Find contacts by name'
             arrayContacts={contacts}
+          />
+          <Contacts
+            arrayContacts={filteredContacts}
             onDeleteContact={this.onDeleteContact}
           />
         </Section>

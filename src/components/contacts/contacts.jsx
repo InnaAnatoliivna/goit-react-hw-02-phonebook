@@ -1,6 +1,6 @@
 import SavedContact from 'components/contacts/savedContact'
 
-const Contacts = ({ title, arrayContacts, onDeleteContact }) => {
+const Contacts = ({ arrayContacts, onDeleteContact }) => {
     const handleDelete = (e, index) => {
         e.preventDefault();
         onDeleteContact(index);
@@ -8,12 +8,15 @@ const Contacts = ({ title, arrayContacts, onDeleteContact }) => {
 
     return (
         <div>
-            <ul onClick={(e, index) => {
-                e.target.tagName === 'BUTTON' && handleDelete(e, index)
-
-            }}>
-                <SavedContact arrayContacts={arrayContacts} />
-            </ul>
+            {arrayContacts.length > 0 ?
+                (<ul onClick={(e, index) => {
+                    e.target.tagName === 'BUTTON' && handleDelete(e, index)
+                }}>
+                    <SavedContact arrayContacts={arrayContacts} />
+                </ul>
+                )
+                : (<p>The contact list is empty</p>)
+            }
         </div>
     )
 }
