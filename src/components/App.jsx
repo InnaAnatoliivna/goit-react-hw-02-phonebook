@@ -43,16 +43,18 @@ export class App extends Component {
     }
   }
 
-  onDeleteContact = (index) => {
-    const { contacts } = this.state;
-    const updateArrayContacts = [...contacts];
-    updateArrayContacts.splice(index, 1);
-    this.setState({ contacts: updateArrayContacts })
+  onDeleteContact = (id) => {
+    // const { contacts } = this.state;
+    // const updateArrayContacts = [...contacts];
+    // updateArrayContacts.splice(index, 1);
+    // this.setState({ contacts: updateArrayContacts })
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id)
+    }))
   }
 
   onFilteringInput = (e) => {
     const searchValue = e.target.value.trim();
-    console.log(searchValue)
     this.setState({ filter: searchValue })
   }
 
@@ -64,7 +66,7 @@ export class App extends Component {
         .includes(filter.toLowerCase()))
 
     return (
-      <div>
+      <div className='container'>
         <Head headTitle='Phonebook' />
 
         <Phonebook

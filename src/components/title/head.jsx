@@ -1,6 +1,8 @@
+import css from 'components/title/head.module.css'
+
 const Head = ({ headTitle }) => {
     return (
-        <h1>{headTitle}</h1>
+        <h1 className={css.title}>{headTitle}</h1>
     )
 }
 

@@ -1,21 +1,30 @@
 import SavedContact from 'components/contacts/savedContact'
+import css from 'components/contacts/contacts.module.css'
 
 const Contacts = ({ arrayContacts, onDeleteContact }) => {
-    const handleDelete = (e, index) => {
-        e.preventDefault();
-        onDeleteContact(index);
+
+    const handleClick = (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const id = e.target.getAttribute('data-id');
+            onDeleteContact(id)
+        }
     }
 
     return (
         <div>
             {arrayContacts.length > 0 ?
-                (<ul onClick={(e, index) => {
-                    e.target.tagName === 'BUTTON' && handleDelete(e, index)
-                }}>
-                    <SavedContact arrayContacts={arrayContacts} />
+                (<ul onClick={handleClick}>
+                    {arrayContacts.map(contact => (
+                        <SavedContact
+                            arrayContacts={arrayContacts}
+                            key={contact.id}
+                            contact={contact}
+                        />
+                    ))}
+
                 </ul>
                 )
-                : (<p>The contact list is empty</p>)
+                : (<p className={css.text}>The contact list is empty.</p>)
             }
         </div>
     )
