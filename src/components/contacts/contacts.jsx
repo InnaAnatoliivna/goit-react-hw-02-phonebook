@@ -6,7 +6,7 @@ const Contacts = ({ arrayContacts, onDeleteContact }) => {
     const handleClick = (e) => {
         if (e.target.tagName === 'BUTTON') {
             const id = e.target.getAttribute('data-id');
-            onDeleteContact(id)
+            onDeleteContact(id);
         }
     }
 
