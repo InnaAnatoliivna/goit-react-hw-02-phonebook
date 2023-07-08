@@ -4,7 +4,7 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
 
     return (
         <>
-            <form className={css.form} action='submit' onSubmit={handleAddContact}>
+            <form className={css.form} onSubmit={handleAddContact}>
                 <label className={css.label} htmlFor={nameInputId}>Name</label>
                 <input
                     className={css.input}
@@ -27,7 +27,7 @@ const Phonebook = ({ nameInputId, numerInputId, handleAddContact, handleChange, 
                     onChange={handleChange}
                     required
                 />
-                <button className={css.button}>Add contact</button>
+                <button type="submit" className={css.button}>Add contact</button>
             </form>
         </>
     )

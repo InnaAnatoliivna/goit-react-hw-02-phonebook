@@ -1,53 +1,35 @@
 import { Component } from 'react';
-import { nanoid } from 'nanoid';
 import { getRandomId } from 'components/random-id'
 import Head from 'components/title/head';
 import Section from 'components/title/section-title';
-import Phonebook from 'components/phonebook/phonebook';
 import Contacts from 'components/contacts/contacts';
 import SearchContact from 'components/contacts/SearchContact';
+import AddContactForm from 'components/phonebook/add-contact';
 
 export class App extends Component {
-  nameInputId = nanoid();
-  numerInputId = nanoid();
-
   state = {
     contacts: [],
-    name: '',
-    number: '',
     filter: ''
   }
 
-  onChangeInput = (evt) => {
-    const { name, value } = evt.target;
-    this.setState({ [name]: value })
-  }
-
-  onAddToContacts = (e) => {
-    e.preventDefault();
-    const dataFields = {}
-    const { contacts, name } = this.state;
+  addContact = (name, number) => {
+    const { contacts } = this.state;
     const idContact = getRandomId();
+    const dataFields = {}
     const isContact = contacts.find(contact => contact.name === name);
     if (!isContact) {
-      dataFields.name = this.state.name;
-      dataFields.number = this.state.number;
+      dataFields.name = name;
+      dataFields.number = number;
       dataFields.id = idContact;
-      this.setState({
-        contacts: [...contacts, dataFields],
-        name: '',
-        number: ''
-      })
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, dataFields]
+      }));
     } else {
       alert(`${name} is already in contacts`)
     }
-  }
+  };
 
   onDeleteContact = (id) => {
-    // const { contacts } = this.state;
-    // const updateArrayContacts = [...contacts];
-    // updateArrayContacts.splice(index, 1);
-    // this.setState({ contacts: updateArrayContacts })
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id)
     }))
@@ -60,7 +42,7 @@ export class App extends Component {
 
   render() {
 
-    const { contacts, name, number, filter } = this.state;
+    const { contacts, filter } = this.state;
     const filteredContacts = contacts
       .filter(contact => contact.name.toLowerCase()
         .includes(filter.toLowerCase()))
@@ -69,14 +51,7 @@ export class App extends Component {
       <div className='container'>
         <Head headTitle='Phonebook' />
 
-        <Phonebook
-          nameInputId={this.nameInputId}
-          numerInputId={this.numerInputId}
-          handleAddContact={this.onAddToContacts}
-          handleChange={this.onChangeInput}
-          name={name}
-          number={number}
-        />
+        <AddContactForm addContact={this.addContact} />
 
         <Section title='Contacts'>
           <SearchContact
